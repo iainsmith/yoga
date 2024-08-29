@@ -55,6 +55,14 @@
 #define YG_ENUM_END(name) name
 #endif
 
+#ifdef NS_ENUM
+#define YG_ENUM_FLAG_END(name)
+#elif defined(__clang__)
+#define YG_ENUM_FLAG_END(name) __attribute__((enum_extensibility(closed), flag_enum)) name
+#else
+#define YG_ENUM_FLAG_END(name) name
+#endif
+
 #ifdef __cplusplus
 #define YG_DEFINE_ENUM_FLAG_OPERATORS(name)                       \
   extern "C++" {                                                  \
@@ -99,4 +107,8 @@
 
 #define YG_ENUM_DECL(NAME, ...)                               \
   typedef YG_ENUM_BEGIN(NAME){__VA_ARGS__} YG_ENUM_END(NAME); \
+  YG_EXPORT const char* NAME##ToString(NAME);
+
+#define YG_ENUM_FLAG_DECL(NAME, ...)                               \
+  typedef YG_ENUM_BEGIN(NAME){__VA_ARGS__} YG_ENUM_FLAG_END(NAME); \
   YG_EXPORT const char* NAME##ToString(NAME);

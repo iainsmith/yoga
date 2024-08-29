@@ -52,7 +52,7 @@ YG_ENUM_DECL(
     YGEdgeVertical,
     YGEdgeAll)
 
-YG_ENUM_DECL(
+YG_ENUM_FLAG_DECL(
     YGErrata,
     YGErrataNone = 0,
     YGErrataStretchFlexBasis = 1,

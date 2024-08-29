@@ -126,7 +126,10 @@ with open(root + "/yoga/YGEnums.h", "w") as f:
     f.write("YG_EXTERN_C_BEGIN\n\n")
     items = sorted(ENUMS.items())
     for name, values in items:
-        f.write("YG_ENUM_DECL(\n")
+        use_flag = name in BITSET_ENUMS
+        decl = "YG_ENUM_FLAG_DECL" if use_flag else "YG_ENUM_DECL"
+        f.write(decl)
+        f.write("(\n")
 
         f.write("    YG%s,\n" % name)
         for value in values:
